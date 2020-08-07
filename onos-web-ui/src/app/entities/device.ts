@@ -13,7 +13,7 @@ export class Device {
   humanReadableLastUpdate: string;
   annotations: {
     channelId: string;
-    managemenetAddress: string;
+    managementAddress: string;
     protocol: string;
   };
 }

@@ -13,6 +13,8 @@ export class PortsComponent implements OnInit {
   ports: Port[];
   ngOnInit(): void {
     this.deviceService.getPorts().subscribe((data) => {
+      console.log();
+      
       this.ports = data;
     });
   }

@@ -9,6 +9,7 @@ import { SectionComponent } from './components/section/section.component';
 import { DeviceListComponent } from './components/device-list/device-list.component';
 import { ModalComponent } from './components/modal/modal.component';
 import { PortsComponent } from './components/ports/ports.component';
+import { FlowsComponent } from './components/flows/flows.component';
 
 @NgModule({
   declarations: [
@@ -18,6 +19,7 @@ import { PortsComponent } from './components/ports/ports.component';
     DeviceListComponent,
     ModalComponent,
     PortsComponent,
+    FlowsComponent,
   ],
   imports: [BrowserModule, AppRoutingModule, HttpClientModule],
   providers: [],

@@ -10,7 +10,7 @@ import { Flow } from '../../entities/flow';
 export class FlowsComponent implements OnInit {
   constructor(private flowService: FlowService) {}
   flows: Flow[];
-  flow: Flow;
+  flowDetail: Flow;
   ngOnInit(): void {
     this.flowService.getFlows().subscribe((data) => {
       this.flows = data;
@@ -20,7 +20,7 @@ export class FlowsComponent implements OnInit {
     this.flowService.getFlowById(deviceId, flowId).subscribe((data) => {
       console.log(data);
 
-      this.flow = data;
+      this.flowDetail = data;
     });
   }
   removeFlow(deviceId: string, flowId: string): void {

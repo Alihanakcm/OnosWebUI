@@ -39,7 +39,7 @@
           <a
             type="button"
             class="btn btn-danger btn-sm"
-            (click)="removeFlow(flow.deviceId,flow.id)"
+            (click)="removeFlow(flow.deviceId, flow.id)"
             >Remove</a
           >
         </td>
@@ -50,7 +50,7 @@
 
 <!-- Modal -->
 <div
-  *ngIf="flows"
+  *ngIf="flowDetail !=undefined"
   class="modal fade"
   id="flowDetail"
   tabindex="-1"
@@ -70,190 +70,95 @@
           <tbody>
             <tr>
               <td>Group Id</td>
-              <td>{{ flow.groupId }}</td>
+              <td>{{ flowDetail.groupId }}</td>
             </tr>
             <tr>
               <td>State</td>
-              <td>{{ flow.state }}</td>
+              <td>{{ flowDetail.state }}</td>
             </tr>
 
             <tr>
               <td>Life</td>
-              <td>{{ flow.life }}</td>
+              <td>{{ flowDetail.life }}</td>
             </tr>
 
             <tr>
               <td>Live Type</td>
-              <td>{{ flow.liveType }}</td>
+              <td>{{ flowDetail.liveType }}</td>
             </tr>
 
             <tr>
               <td>Last Seen</td>
-              <td>{{ flow.lastSeen }}</td>
+              <td>{{ flowDetail.lastSeen }}</td>
             </tr>
 
             <tr>
               <td>Packets</td>
-              <td>{{ flow.packets }}</td>
+              <td>{{ flowDetail.packets }}</td>
             </tr>
 
             <tr>
               <td>Bytes</td>
-              <td>{{ flow.bytes }}</td>
+              <td>{{ flowDetail.bytes }}</td>
             </tr>
 
             <tr>
               <td>Id</td>
-              <td>{{ flow.id }}</td>
+              <td>{{ flowDetail.id }}</td>
             </tr>
 
             <tr>
               <td>App Id</td>
-              <td>{{ flow.appId }}</td>
+              <td>{{ flowDetail.appId }}</td>
             </tr>
             <tr>
               <td>Priority</td>
-              <td>{{ flow.priority }}</td>
+              <td>{{ flowDetail.priority }}</td>
             </tr>
 
             <tr>
               <td>Timeout</td>
-              <td>{{ flow.timeout }}</td>
+              <td>{{ flowDetail.timeout }}</td>
             </tr>
 
             <tr>
               <td>Is Permanent</td>
-              <td>{{ flow.isPermanent }}</td>
+              <td>{{ flowDetail.isPermanent }}</td>
             </tr>
 
             <tr>
               <td>Device Id</td>
-              <td>{{ flow.deviceId }}</td>
+              <td>{{ flowDetail.deviceId }}</td>
             </tr>
 
             <tr>
               <td>Table Id</td>
-              <td>{{ flow.tableId }}</td>
+              <td>{{ flowDetail.tableId }}</td>
             </tr>
 
             <tr>
               <td>Table Name</td>
-              <td>{{ flow.tableName }}</td>
+              <td>{{ flowDetail.tableName }}</td>
             </tr>
 
-            <!-- <tr>
+            <tr>
               <td>Treatment Instructions Type</td>
-              <td>{{ flow.treatment.instructions.type }}</td>
+              <td>{{ flowDetail.treatment.instructions[0].type }}</td>
             </tr>
 
             <tr>
               <td>Instructions Type</td>
-              <td>{{ flow.treatment.instructions.port }}</td>
-            </tr>
-
-            <tr>
-              <td>Instructions Port</td>
-              <td>{{ .deferred }}</td>
+              <td>{{ flowDetail.treatment.instructions[0].port }}</td>
             </tr>
 
             <tr>
               <td>Selector Criteria Type</td>
-              <td>{{ flow.selector.criteria.type }}</td>
+              <td>{{ flowDetail.selector.criteria[0].type }}</td>
             </tr>
 
             <tr>
               <td>Selector Criteria eth Type</td>
-              <td>{{ flow.selector.criteria.ethType }}</td>
-            </tr> -->
-          </tbody>
-        </table>
-      </div>
-      <div class="modal-footer">
-        <button type="button" class="btn btn-secondary" data-dismiss="modal">
-          Close
-        </button>
-      </div>
-    </div>
-  </div>
-</div>
-
-<div
-  *ngIf="flows"
-  class="modal fade"
-  id="ports"
-  tabindex="-1"
-  aria-labelledby="exampleModalLabel"
-  aria-hidden="true"
->
-  <div class="modal-dialog modal-xl">
-    <div class="modal-content">
-      <div class="modal-header">
-        <h5 class="modal-title" id="exampleModalLabel">Device Ports</h5>
-      </div>
-      <div class="modal-body">
-        <table class="table">
-          <thead>
-            <th>Group Id</th>
-            <th>State</th>
-            <th>Life</th>
-            <th>Live Type</th>
-            <th>Last Seen</th>
-            <th>Packets</th>
-            <th>Bytes</th>
-            <th>Id</th>
-            <th>App Id</th>
-            <th>Priority</th>
-            <th>Timeout</th>
-            <th>Is Permanent</th>
-            <th>Device Id</th>
-            <th>Table Id</th>
-            <th>Table Name</th>
-            <th>Treatment</th>
-            <th>Instructions Type</th>
-            <th>Instructions Port</th>
-            <th>Selector Criteria Type</th>
-            <th>Selector Criteria eth Type</th>
-            <tr></tr>
-          </thead>
-          <tbody>
-            <tr>
-              <td>{{ flow.groupId }}</td>
-              <td>{{ flow.state }}</td>
-              <td>{{ flow.life }}</td>
-              <td>{{ flow.liveType }}</td>
-              <td>{{ flow.lastSeen }}</td>
-              <td>{{ flow.packets }}</td>
-              <td>{{ flow.bytes }}</td>
-              <td>{{ flow.id }}</td>
-              <td>{{ flow.appId }}</td>
-              <td>{{ flow.priority }}</td>
-              <td>{{ flow.timeout }}</td>
-              <td>{{ flow.isPermanent }}</td>
-              <td>{{ flow.deviceId }}</td>
-              <td>{{ flow.tableId }}</td>
-              <td>{{ flow.tableName }}</td>
-              <td>{{ flow.treatment.instructions.type }}</td>
-              <td>{{ flow.treatment.instructions.port }}</td>
-              <td>{{ flow.treatment.deferred }}</td>
-              <td>{{ flow.selector.criteria.type }}</td>
-              <td>{{ flow.selector.criteria.ethType }}</td>
-              <td>
-                <a
-                  type="button"
-                  class="btn btn-success btn-sm"
-                  *ngIf="port.isEnabled == false; else portDisable"
-                  (click)="changePortState(port.element, port.port, 'true')"
-                  >On</a
-                >
-                <ng-template #portDisable>
-                  <a
-                    type="button"
-                    class="btn btn-danger btn-sm"
-                    (click)="changePortState(port.element, port.port, 'false')"
-                    >off</a
-                  ></ng-template
-                >
-              </td>
+              <td>{{ flowDetail.selector.criteria[0].ethType }}</td>
             </tr>
           </tbody>
         </table>

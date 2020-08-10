@@ -38,18 +38,8 @@
         <td>
           <a
             type="button"
-            class="btn btn-primary btn-sm"
-            data-toggle="modal"
-            data-target="#ports"
-            (click)="getPortsByDeviceId(device.id)"
-            >Ports</a
-          >
-        </td>
-        <td>
-          <a
-            type="button"
             class="btn btn-danger btn-sm"
-            (click)="removeDevice(device.id)"
+            (click)="removeFlow(flow.deviceId,flow.id)"
             >Remove</a
           >
         </td>
@@ -67,10 +57,10 @@
   aria-labelledby="exampleModalLabel"
   aria-hidden="true"
 >
-  <div class="modal-dialog modal-xl">
+  <div class="modal-dialog modal-md">
     <div class="modal-content">
       <div class="modal-header">
-        <h5 class="modal-title" id="exampleModalLabel">Device Detail</h5>
+        <h5 class="modal-title" id="exampleModalLabel">Flow Detail</h5>
       </div>
       <div class="modal-body">
         <table class="table">
@@ -89,94 +79,92 @@
 
             <tr>
               <td>Life</td>
-              <td>Life</td>
+              <td>{{ flow.life }}</td>
             </tr>
 
             <tr>
               <td>Live Type</td>
-              <td>Live Type</td>
+              <td>{{ flow.liveType }}</td>
             </tr>
 
             <tr>
               <td>Last Seen</td>
-              <td>Last Seen</td>
+              <td>{{ flow.lastSeen }}</td>
             </tr>
 
             <tr>
               <td>Packets</td>
-              <td>Packets</td>
+              <td>{{ flow.packets }}</td>
             </tr>
 
             <tr>
               <td>Bytes</td>
-              <td>Bytes</td>
+              <td>{{ flow.bytes }}</td>
             </tr>
 
             <tr>
               <td>Id</td>
-              <td>Id</td>
+              <td>{{ flow.id }}</td>
             </tr>
 
             <tr>
               <td>App Id</td>
-              <td>App Id</td>
+              <td>{{ flow.appId }}</td>
             </tr>
-
-            <tr></tr>
             <tr>
               <td>Priority</td>
-              <td>Priority</td>
+              <td>{{ flow.priority }}</td>
             </tr>
 
             <tr>
               <td>Timeout</td>
-              <td>Timeout</td>
+              <td>{{ flow.timeout }}</td>
             </tr>
 
             <tr>
               <td>Is Permanent</td>
-              <td>Is Permanent</td>
+              <td>{{ flow.isPermanent }}</td>
             </tr>
 
             <tr>
               <td>Device Id</td>
-              <td>Device Id</td>
+              <td>{{ flow.deviceId }}</td>
             </tr>
 
             <tr>
               <td>Table Id</td>
-              <td>Table Id</td>
+              <td>{{ flow.tableId }}</td>
             </tr>
 
             <tr>
               <td>Table Name</td>
-              <td>Table Name</td>
+              <td>{{ flow.tableName }}</td>
             </tr>
 
-            <tr>
-              <td>Treatment</td>
-              <td>Treatment</td>
+            <!-- <tr>
+              <td>Treatment Instructions Type</td>
+              <td>{{ flow.treatment.instructions.type }}</td>
             </tr>
 
             <tr>
               <td>Instructions Type</td>
-              <td>Instructions Type</td>
+              <td>{{ flow.treatment.instructions.port }}</td>
             </tr>
 
             <tr>
               <td>Instructions Port</td>
-              <td>Instructions Port</td>
+              <td>{{ .deferred }}</td>
             </tr>
 
             <tr>
               <td>Selector Criteria Type</td>
-              <td>Selector Criteria Type</td>
+              <td>{{ flow.selector.criteria.type }}</td>
             </tr>
 
             <tr>
               <td>Selector Criteria eth Type</td>
-              <td>Selector Criteria eth Type</td>
-            </tr>
+              <td>{{ flow.selector.criteria.ethType }}</td>
+            </tr> -->
           </tbody>
         </table>
       </div>

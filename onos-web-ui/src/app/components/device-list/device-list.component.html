@@ -59,9 +59,9 @@
   </table>
 </div>
 
-<!-- Modal -->
+<!-- Modals -->
 <div
-  *ngIf="device"
+  *ngIf="deviceDetail"
   class="modal fade"
   id="deviceDetail"
   tabindex="-1"
@@ -81,63 +81,63 @@
           <tbody>
             <tr>
               <td>Id</td>
-              <td>{{ device.id }}</td>
+              <td>{{ deviceDetail.id }}</td>
             </tr>
             <tr>
               <td>Type</td>
-              <td>{{ device.type }}</td>
+              <td>{{ deviceDetail.type }}</td>
             </tr>
             <tr>
               <td>Available</td>
-              <td>{{ device.available }}</td>
+              <td>{{ deviceDetail.available }}</td>
             </tr>
             <tr>
               <td>Role</td>
-              <td>{{ device.role }}</td>
+              <td>{{ deviceDetail.role }}</td>
             </tr>
             <tr>
               <td>Mfr</td>
-              <td>{{ device.mfr }}</td>
+              <td>{{ deviceDetail.mfr }}</td>
             </tr>
             <tr>
               <td>Hw</td>
-              <td>{{ device.hw }}</td>
+              <td>{{ deviceDetail.hw }}</td>
             </tr>
             <tr>
               <td>Sw</td>
-              <td>{{ device.sw }}</td>
+              <td>{{ deviceDetail.sw }}</td>
             </tr>
             <tr>
               <td>Serial</td>
-              <td>{{ device.serial }}</td>
+              <td>{{ deviceDetail.serial }}</td>
             </tr>
             <tr>
               <td>Driver</td>
-              <td>{{ device.driver }}</td>
+              <td>{{ deviceDetail.driver }}</td>
             </tr>
             <tr>
               <td>Chassis Id</td>
-              <td>{{ device.chassisId }}</td>
+              <td>{{ deviceDetail.chassisId }}</td>
             </tr>
             <tr>
               <td>Last Update</td>
-              <td>{{ device.lastUpdate }}</td>
+              <td>{{ deviceDetail.lastUpdate }}</td>
             </tr>
             <tr>
               <td>Human Readable Last Update</td>
-              <td>{{ device.humanReadableLastUpdate }}</td>
+              <td>{{ deviceDetail.humanReadableLastUpdate }}</td>
             </tr>
             <tr>
               <td>Channel Id</td>
-              <td>{{ device.annotations.channelId }}</td>
+              <td>{{ deviceDetail.annotations.channelId }}</td>
             </tr>
             <tr>
               <td>Management Address</td>
-              <td>{{ device.annotations.managementAddress }}</td>
+              <td>{{ deviceDetail.annotations.managementAddress }}</td>
             </tr>
             <tr>
               <td>protocol</td>
-              <td>{{ device.annotations.protocol }}</td>
+              <td>{{ deviceDetail.annotations.protocol }}</td>
             </tr>
           </tbody>
         </table>
@@ -245,8 +245,12 @@
                 <th scope="col">Priority</th>
                 <th scope="col">Timeout</th>
                 <th scope="col">Is Permanent Id</th>
-                <th scope="col">Table Id  </th>
+                <th scope="col">Table Id</th>
                 <th scope="col">Table Name</th>
+                <th scope="col">Treatment Instructions Type</th>
+                <th scope="col">Treatment Instructions Port</th>
+                <th scope="col">Treatment Criteria Port</th>
+                <th scope="col">Treatment Criteria ethType</th>
               </tr>
             </thead>
             <tbody>
@@ -264,6 +268,10 @@
                 <td>{{ flow.isPermanent }}</td>
                 <td>{{ flow.tableId }}</td>
                 <td>{{ flow.tableName }}</td>
+                <td>{{ flow.treatment.instructions[0].type }}</td>
+                <td>{{ flow.treatment.instructions[0].port }}</td>
+                <td>{{ flow.selector.criteria[0].type }}</td>
+                <td>{{ flow.selector.criteria[0].ethType }}</td>
               </tr>
             </tbody>
           </table>

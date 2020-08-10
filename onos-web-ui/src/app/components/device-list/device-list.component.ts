@@ -16,7 +16,7 @@ export class DeviceListComponent implements OnInit {
     private flowService: FlowService
   ) {}
   devices: Device[];
-  device: Device;
+  deviceDetail: Device;
   ports: Port[];
   flows: Flow[];
   ngOnInit(): void {
@@ -26,13 +26,15 @@ export class DeviceListComponent implements OnInit {
   }
   getDeviceById(id: string): void {
     this.deviceService.getDeviceById(id).subscribe((data) => {
-      console.log(data);
-
-      this.device = data;
+      this.deviceDetail = data;
     });
   }
   getPortsByDeviceId(id: string): void {
+    console.log(id);
+    
     this.deviceService.getPortsByDeviceId(id).subscribe((data) => {
+      console.log(data);
+      
       this.ports = data;
     });
   }

@@ -10,6 +10,7 @@ import { DeviceListComponent } from './components/device-list/device-list.compon
 import { ModalComponent } from './components/modal/modal.component';
 import { PortsComponent } from './components/ports/ports.component';
 import { FlowsComponent } from './components/flows/flows.component';
+import { CreateFlowComponent } from './components/create-flow/create-flow.component';
 
 @NgModule({
   declarations: [
@@ -20,6 +21,7 @@ import { FlowsComponent } from './components/flows/flows.component';
     ModalComponent,
     PortsComponent,
     FlowsComponent,
+    CreateFlowComponent,
   ],
   imports: [BrowserModule, AppRoutingModule, HttpClientModule],
   providers: [],

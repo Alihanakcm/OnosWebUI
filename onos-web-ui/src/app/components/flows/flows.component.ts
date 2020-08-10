@@ -19,8 +19,11 @@ export class FlowsComponent implements OnInit {
   getFlowById(deviceId: string, flowId): void {
     this.flowService.getFlowById(deviceId, flowId).subscribe((data) => {
       console.log(data);
-      
+
       this.flow = data;
     });
+  }
+  removeFlow(deviceId: string, flowId: string): void {
+    this.flowService.removeFlow(deviceId, flowId);
   }
 }

@@ -20,6 +20,17 @@ export class FlowService {
       .get<Flow>(this.path + '/' + deviceId + '/' + flowId)
       .pipe(catchError(this.handleError));
   }
+  getFlowsByDeviceId(deviceId: string): Observable<Flow[]> {
+    return this.http
+      .get<Flow[]>(this.path + '/' + deviceId)
+      .pipe(catchError(this.handleError));
+  }
+  removeFlow(deviceId: string, flowId: string): void {
+    this.http
+      .delete(this.path + '/' + deviceId + '/' + flowId)
+      .pipe(catchError(this.handleError))
+      .subscribe();
+  }
   handleError(err: HttpErrorResponse) {
     let errorMessage = '';
     if (err.error instanceof ErrorEvent) {

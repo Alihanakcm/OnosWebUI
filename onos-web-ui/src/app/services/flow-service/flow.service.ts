@@ -31,6 +31,20 @@ export class FlowService {
       .pipe(catchError(this.handleError))
       .subscribe();
   }
+  createFlow(flow: JSON, appId: string): Observable<JSON> {
+    console.log('Geldi');
+    console.log(flow);
+
+    const httpOptions = {
+      headers: new HttpHeaders({
+        'Content-Type': 'application/json',
+        Authorization: 'Token',
+      }),
+    };
+    return this.http
+      .post<JSON>(this.path + '?appId=' + appId, flow, httpOptions)
+      .pipe(catchError(this.handleError));
+  }
   handleError(err: HttpErrorResponse) {
     let errorMessage = '';
     if (err.error instanceof ErrorEvent) {

@@ -11,6 +11,8 @@ import { ModalComponent } from './components/modal/modal.component';
 import { PortsComponent } from './components/ports/ports.component';
 import { FlowsComponent } from './components/flows/flows.component';
 import { CreateFlowComponent } from './components/create-flow/create-flow.component';
+import { DeviceStatisticsComponent } from './components/device-statistics/device-statistics.component';
+import { FlowStatisticsComponent } from './components/flow-statistics/flow-statistics.component';
 
 @NgModule({
   declarations: [
@@ -22,6 +24,8 @@ import { CreateFlowComponent } from './components/create-flow/create-flow.compon
     PortsComponent,
     FlowsComponent,
     CreateFlowComponent,
+    DeviceStatisticsComponent,
+    FlowStatisticsComponent,
   ],
   imports: [BrowserModule, AppRoutingModule, HttpClientModule],
   providers: [],

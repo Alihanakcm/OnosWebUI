@@ -23,7 +23,7 @@
         <td>{{ port.annotations.adminState }}</td>
         <td>{{ port.annotations.portMac }}</td>
         <td>{{ port.annotations.portName }}</td>
-        <td>
+        <td *ngIf="port.port != 'local'">
           <a
             type="button"
             class="btn btn-success btn-sm"
@@ -36,7 +36,7 @@
               type="button"
               class="btn btn-danger btn-sm"
               (click)="changePortState(port.element, port.port, 'false')"
-              >off</a
+              >Off</a
             ></ng-template
           >
         </td>

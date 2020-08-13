@@ -1,0 +1,75 @@
+<br />
+<div class="row d-flex justify-content-center">
+  <div class="col-md-6">
+    <select #deviceId class="form-control">
+      <option selected>Choose Device</option>
+      <option *ngFor="let device of devices" [value]="device.id">{{
+        device.id
+      }}</option>
+    </select>
+  </div>
+  <div class="col-md-2">
+    <button
+      type="button"
+      class="btn btn-info"
+      (click)="getFlowsTableStatisticsByDeviceId(deviceId.value)"
+    >
+      Get statistics
+    </button>
+  </div>
+  <div class="col-md-2">
+    <button
+      type="button"
+      class="btn btn-info"
+      (click)="getFlowsTableStatistics()"
+    >
+      Get All Table
+    </button>
+  </div>
+</div>
+<br />
+<div class="table-responsive">
+  <table class="table table-striped table-sm">
+    <thead>
+      <tr>
+        <th scope="col">Rate</th>
+        <th scope="col">Latest</th>
+        <th scope="col">Valid</th>
+        <th scope="col">Time</th>
+        <th scope="col">Link</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr *ngFor="let flowsLink of flowsLinks">
+        <td>{{ flowsLink.rate }}</td>
+        <td>{{ flowsLink.latest }}</td>
+        <td>{{ flowsLink.valid }}</td>
+        <td>{{ flowsLink.time }}</td>
+        <td>{{ flowsLink.link }}</td>
+      </tr>
+    </tbody>
+  </table>
+</div>
+<div class="table-responsive" *ngIf="flowTableStatistics">
+  <table class="table table-striped table-sm">
+    <thead>
+      <tr>
+        <th scope="col">Table Id</th>
+        <th scope="col">Device Id</th>
+        <th scope="col">Active Entries</th>
+        <th scope="col">Pockets Looked Up</th>
+        <th scope="col">Pocket Matched</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr *ngFor="let flowTableStatistic of flowTableStatistics">
+        <td>{{ flowTableStatistic.tableId }}</td>
+        <td>{{ flowTableStatistic.deviceId }}</td>
+        <td>{{ flowTableStatistic.activeEntries }}</td>
+        <td>{{ flowTableStatistic.pocketsLookedUp }}</td>
+        <td>{{ flowTableStatistic.pocketsMatched }}</td>
+      </tr>
+    </tbody>
+  </table>
+</div>
+<br />

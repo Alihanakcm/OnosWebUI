@@ -26,11 +26,7 @@ export class StatisticsService {
       .get<Table[]>(this.path + '/flows/tables/' + deviceId)
       .pipe(catchError(this.handleError));
   }
-  getFlowsTableStatistics(): Observable<Table[]> {
-    return this.http
-      .get<Table[]>(this.path + '/flows/tables')
-      .pipe(catchError(this.handleError));
-  }
+
   getFlowsLinkStatistics(): Observable<Link[]> {
     return this.http
       .get<Link[]>(this.path + '/flows/link')

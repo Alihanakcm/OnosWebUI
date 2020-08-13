@@ -23,13 +23,10 @@ export class FlowStatisticsComponent implements OnInit {
     this.statisticsService
       .getFlowsTableStatisticsByDeviceId(deviceId)
       .subscribe((data) => {
+
         this.flowTableStatistics = data;
+
       });
-  }
-  getFlowsTableStatistics() {
-    this.statisticsService.getFlowsTableStatistics().subscribe((data) => {
-      this.flowTableStatistics = data;
-    });
   }
   ngOnInit(): void {
     this.deviceService.getDevices().subscribe((data) => {

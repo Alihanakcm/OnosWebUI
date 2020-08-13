@@ -1,1 +1,157 @@
-<p>create-flow works!</p>
+<br />
+<form>
+  <label>Choose Application</label>
+  <div class="mb-3">
+    <select
+      #appId
+      class="custom-select"
+      name="appId"
+      id="appId"
+      aria-describedby="appId"
+      required
+    >
+      <option selected disabled value="">Choose Application</option>
+      <option *ngFor="let app of applications" [value]="app.name">{{
+        app.name
+      }}</option>
+    </select>
+  </div>
+  <div class="form-col">
+    <div class="mb-3">
+      <input
+        #priority
+        placeholder="Priority"
+        name="priority"
+        type="number"
+        class="form-control"
+        id="priority"
+        required
+      />
+    </div>
+    <div class="mb-3">
+      <input
+        #timeout
+        name="timeout"
+        placeholder="Timeout"
+        type="number"
+        class="form-control"
+        id="timeout"
+        required
+      />
+    </div>
+    <label>Is Permanent</label>
+    <div class="mb-3">
+      <select
+        #isPermanent
+        class="custom-select"
+        name="appId"
+        id="appId"
+        aria-describedby="appId"
+        required
+      >
+        <option selected disabled value="">Choose Application</option>
+        <option value="true">True</option>
+        <option value="false">False</option>
+      </select>
+    </div>
+    <label>Choose Device</label>
+    <div class="mb-3">
+      <select
+        #deviceId
+        name="deviceId"
+        class="custom-select"
+        id="deviceId"
+        aria-describedby="deviceId"
+        required
+      >
+        <option selected disabled value="">Choose Device Id</option>
+        <option *ngFor="let device of devices" [value]="device.id">{{
+          device.id
+        }}</option>
+      </select>
+    </div>
+  </div>
+  <label>Instructions</label>
+  <div class="col">
+    <div id="instructions">
+      <br />
+      <div class="row d-flex justify-content-around">
+        <input
+          #instructionType
+          class="form-control col-md-3"
+          placeholder="type  example: type"
+          id="instructionType"
+          name="instructionType"
+          required
+        />
+        <input
+          #instructionValue
+          class="form-control col-md-3"
+          placeholder="value example: OUTPUT"
+          id="instructionValue"
+          name="instructionValue"
+          required
+        />
+        <button
+          type="button"
+          class="btn btn-success"
+          (click)="
+            addInstruction(instructionType.value, instructionValue.value)
+          "
+        >
+          Insert Instruction
+        </button>
+      </div>
+    </div>
+    <br />
+    <label>Criterias</label>
+    <div class="col">
+      <div id="criterias">
+        <br />
+        <div class="row d-flex justify-content-around">
+          <input
+          #criteriaType
+            class="form-control col-md-3"
+            placeholder="type example: type"
+            id="criteriaType"
+            name="criteriaType"
+            required
+          />
+          <input
+          #criteriaValue
+            class="form-control col-md-3"
+            placeholder="value example: ETH_TYPE"
+            id="criteriaValue"
+            name="criteriaValue"
+            required
+          />
+          <button
+            type="button"
+            class="btn btn-success"
+            (click)="addCriteria(criteriaType.value, criteriaValue.value)"
+          >
+            Insert Criteria
+          </button>
+        </div>
+      </div>
+    </div>
+  </div>
+  <br />
+  <div class="d-flex flex-column-reverse bd-highlight">
+    <button
+      class="btn btn-success"
+      type="button"
+      (click)="
+        createFlow(
+          appId.value,
+          priority.value,
+          timeout.value,
+          deviceId.value,
+          isPermanent.value
+        )
+      "
+    >
+      Create Flow
+    </button>
+  </div>
+</form>

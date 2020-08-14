@@ -13,6 +13,7 @@ import { FlowsComponent } from './components/flows/flows.component';
 import { CreateFlowComponent } from './components/create-flow/create-flow.component';
 import { DeviceStatisticsComponent } from './components/device-statistics/device-statistics.component';
 import { FlowStatisticsComponent } from './components/flow-statistics/flow-statistics.component';
+import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
 
 @NgModule({
   declarations: [
@@ -27,7 +28,7 @@ import { FlowStatisticsComponent } from './components/flow-statistics/flow-stati
     DeviceStatisticsComponent,
     FlowStatisticsComponent,
   ],
-  imports: [BrowserModule, AppRoutingModule, HttpClientModule],
+  imports: [BrowserModule, AppRoutingModule, HttpClientModule, NgbModule],
   providers: [],
   bootstrap: [AppComponent],
 })

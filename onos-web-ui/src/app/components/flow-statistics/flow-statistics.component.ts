@@ -32,8 +32,5 @@ export class FlowStatisticsComponent implements OnInit {
     this.deviceService.getDevices().subscribe((data) => {
       this.devices = data;
     });
-    this.statisticsService.getFlowsLinkStatistics().subscribe((data) => {
-      this.flowsLinks = data;
-    });
   }
 }

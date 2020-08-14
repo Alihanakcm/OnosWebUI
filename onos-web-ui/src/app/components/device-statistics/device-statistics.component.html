@@ -1,8 +1,8 @@
 <br />
 <div class="row d-flex justify-content-center">
-  <div class="col-md-7">
+  <div class="col-md-6">
     <select #deviceId class="form-control">
-      <option selected>Choose Device</option>
+      <option selected [value]="">Choose Device</option>
       <option *ngFor="let device of devices" [value]="device.id">{{
         device.id
       }}</option>
@@ -14,16 +14,16 @@
       class="btn btn-info"
       (click)="getDeviceStatistics(deviceId.value)"
     >
-      Get statistics
+      Get Device statistics
     </button>
   </div>
-  <div class="col-md-2">
+  <div class="col-md-3">
     <button
       type="button"
-      class="btn btn-info"
+      class="btn btn-secondary"
       (click)="getDeviceDeltaStatistics(deviceId.value)"
     >
-      Get Delta Statistics
+      Get Device Delta Statistics
     </button>
   </div>
 </div>

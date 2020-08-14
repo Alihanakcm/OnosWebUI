@@ -35,17 +35,13 @@ export class CreateFlowComponent implements OnInit {
     if (this.instructionCounter > 0) this.instructions += ',';
     this.instructionCounter++;
     this.instructions += `"${type}":"${value}"`;
-    console.log(this.instructions);
   }
-  removeInstruction(): void {}
   criteriaCounter = 0;
   addCriteria(type: string, value: string): void {
     if (this.criteriaCounter > 0) this.criterias += ',';
     this.criteriaCounter++;
     this.criterias += `"${type}":"${value}"`;
-    console.log(this.criterias);
   }
-  removeCriteria(): void {}
   createFlow(
     appId: string,
     pritority: string,

@@ -1,4 +1,5 @@
 <div class="table-responsive">
+<h2 class="d-flex justify-content-center">Device List</h2>
   <table class="table table-striped table-sm">
     <thead>
       <tr>
@@ -186,7 +187,7 @@
               <td>{{ port.annotations.adminState }}</td>
               <td>{{ port.annotations.portMac }}</td>
               <td>{{ port.annotations.portName }}</td>
-              <td  *ngIf="port.port != 'local'" >
+              <td *ngIf="port.port != 'local'">
                 <a
                   type="button"
                   class="btn btn-success btn-sm"

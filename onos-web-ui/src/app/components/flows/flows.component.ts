@@ -1,5 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { FlowService } from '../../services/flow-service/flow.service';
+import { MessageService } from '../../services/message-service/message.service';
 import { Flow } from '../../entities/flow';
 @Component({
   selector: 'app-flows',
@@ -8,7 +9,10 @@ import { Flow } from '../../entities/flow';
   providers: [FlowService],
 })
 export class FlowsComponent implements OnInit {
-  constructor(private flowService: FlowService) {}
+  constructor(
+    private flowService: FlowService,
+    private messageService: MessageService
+  ) {}
   flows: Flow[];
   flowDetail: Flow;
   ngOnInit(): void {
@@ -18,12 +22,11 @@ export class FlowsComponent implements OnInit {
   }
   getFlowById(deviceId: string, flowId): void {
     this.flowService.getFlowById(deviceId, flowId).subscribe((data) => {
-      console.log(data);
-
       this.flowDetail = data;
     });
   }
   removeFlow(deviceId: string, flowId: string): void {
     this.flowService.removeFlow(deviceId, flowId);
+    this.messageService.success(flowId + ' removed');
   }
 }

@@ -32,9 +32,6 @@ export class FlowService {
       .subscribe();
   }
   createFlow(flow: JSON, appId: string): Observable<JSON> {
-    console.log('Geldi');
-    console.log(flow);
-
     const httpOptions = {
       headers: new HttpHeaders({
         'Content-Type': 'application/json',

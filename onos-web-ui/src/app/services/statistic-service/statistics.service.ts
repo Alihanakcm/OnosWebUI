@@ -27,11 +27,6 @@ export class StatisticsService {
       .pipe(catchError(this.handleError));
   }
 
-  getFlowsLinkStatistics(): Observable<Link[]> {
-    return this.http
-      .get<Link[]>(this.path + '/flows/link')
-      .pipe(catchError(this.handleError));
-  }
   handleError(err: HttpErrorResponse) {
     let errorMessage = '';
     if (err.error instanceof ErrorEvent) {

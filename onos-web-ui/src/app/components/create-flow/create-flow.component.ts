@@ -4,6 +4,7 @@ import { Application } from '../../entities/application';
 import { Device } from '../../entities/device';
 import { DeviceService } from 'src/app/services/device-service/device.service';
 import { FlowService } from 'src/app/services/flow-service/flow.service';
+import { MessageService } from 'src/app/services/message-service/message.service';
 
 @Component({
   selector: 'app-create-flow',
@@ -15,7 +16,8 @@ export class CreateFlowComponent implements OnInit {
   constructor(
     private applicationService: ApplicationService,
     private deviceService: DeviceService,
-    private flowService: FlowService
+    private flowService: FlowService,
+    private messageService: MessageService
   ) {}
   applications: Application[];
   devices: Device[];
@@ -54,12 +56,11 @@ export class CreateFlowComponent implements OnInit {
     this.flow += `}]},`;
     this.flow += this.criterias;
     this.flow += `}]}}]}`;
-    console.log(this.flow);
-    console.log(JSON.parse(this.flow));
     this.flowService
       .createFlow(JSON.parse(this.flow), appId)
       .subscribe((data) => {
-        console.log(data);
+        if (data != undefined && data != null)
+          this.messageService.success('Flow successfully created');
       });
   }
 }

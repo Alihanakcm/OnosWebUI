@@ -4,6 +4,7 @@ import { Port } from '../../entities/port';
 import { Flow } from '../../entities/flow';
 import { DeviceService } from '../../services/device-service/device.service';
 import { FlowService } from '../../services/flow-service/flow.service';
+import { MessageService } from '../../services/message-service/message.service';
 @Component({
   selector: 'app-device-list',
   templateUrl: './device-list.component.html',
@@ -13,7 +14,8 @@ import { FlowService } from '../../services/flow-service/flow.service';
 export class DeviceListComponent implements OnInit {
   constructor(
     private deviceService: DeviceService,
-    private flowService: FlowService
+    private flowService: FlowService,
+    private messageService: MessageService
   ) {}
   devices: Device[];
   deviceDetail: Device;
@@ -30,23 +32,20 @@ export class DeviceListComponent implements OnInit {
     });
   }
   getPortsByDeviceId(id: string): void {
-    console.log(id);
-    
     this.deviceService.getPortsByDeviceId(id).subscribe((data) => {
-      console.log(data);
-      
       this.ports = data;
     });
   }
   changePortState(id: string, portId: string, state: string): void {
     state = `{"enabled":${state}}`;
-    console.log(state);
-
     this.deviceService.changePortState(id, portId, state);
+    if (state == '{"enabled":true}')
+      this.messageService.success('Port ' + portId + ' closed');
+    else this.messageService.success('Port ' + portId + ' opened');
   }
   removeDevice(id: string): void {
     this.deviceService.removeDevice(id);
-    this.ngOnInit();
+    this.messageService.success(id + ' Device removed succesfully');
   }
   getFlowsByDeviceId(deviceId: string): void {
     this.flowService.getFlowsByDeviceId(deviceId).subscribe((data) => {

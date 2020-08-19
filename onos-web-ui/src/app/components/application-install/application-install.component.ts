@@ -1,10 +1,6 @@
 import { Component, OnInit, ViewChild, ElementRef } from '@angular/core';
-import { HttpEventType, HttpErrorResponse } from '@angular/common/http';
-import { catchError, map } from 'rxjs/operators';
-import { of } from 'rxjs';
 import { ApplicationService } from '../../services/application-service/application.service';
-
-
+import { MessageService } from '../../services/message-service/message.service';
 @Component({
   selector: 'app-application-install',
   templateUrl: './application-install.component.html',
@@ -12,41 +8,23 @@ import { ApplicationService } from '../../services/application-service/applicati
   providers: [ApplicationService],
 })
 export class ApplicationInstallComponent implements OnInit {
-  @ViewChild('fileUpload', { static: false }) fileUpload: ElementRef;
   files = [];
-  constructor(private applicationService: ApplicationService) {}
+  fileSelected = false;
+  fileName = 'Choose File';
+  constructor(
+    private applicationService: ApplicationService,
+    private messageService: MessageService
+  ) {}
+  fileToUpload: File = null;
   ngOnInit(): void {}
-  installApplication(file, activate: boolean): void {
-    const formData = new FormData();
-    formData.append('file', file.data);
-    file.inProgress = true;
-    this.applicationService
-      .installApplication(formData, activate)
-      .pipe(
-        map((event) => {
-          switch (event.type) {
-            case HttpEventType.UploadProgress:
-              file.progress = Math.round((event.loaded * 100) / event.total);
-              break;
-            case HttpEventType.Response:
-              return event;
-          }
-        }),
-        catchError((error: HttpErrorResponse) => {
-          file.inProgress = false;
-          return of(`${file.data.name} upload failed.`);
-        })
-      )
-      .subscribe((event: any) => {
-        if (typeof event === 'object') {
-          console.log(event.body);
-        }
-      });
+
+  handleFileInput(files: FileList) {
+    this.fileToUpload = files.item(0);
+    this.fileName = this.fileToUpload.name;
+    this.fileSelected = true;
   }
-  private uploadFiles() {
-    this.fileUpload.nativeElement.value = '';
-    this.files.forEach((file) => {
-      this.installApplication(file, false);
-    });
+  uploadFileToActivity(activate: boolean) {
+    this.applicationService.uploadFile(this.fileToUpload, activate);
+    this.messageService.success(this.fileName + ' succesfully uploaded');
   }
 }

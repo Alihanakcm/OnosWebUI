@@ -1,34 +1,28 @@
-<!-- <br />
-<div class="justify-content-center d-flex">
-  <div style="text-align: center; margin-top: 100px;">
-    <mat-card style="margin-top: 10px; width: 50%;">
-      <mat-card-content>
-        <ul>
-          <li *ngFor="let file of files">
-            <mat-progress-bar [value]="file.progress"></mat-progress-bar>
-            <span id="file-label"> </span>
-          </li>
-        </ul>
-      </mat-card-content>
-      <mat-card-actions>
-        <button mat-button color="warn" (click)="onClick()">
-          <mat-icon>file_upload</mat-icon>
-          Upload
-        </button>
-      </mat-card-actions> </mat-card
-    ><input
-      type="file"
-      #fileUpload
-      id="fileUpload"
-      name="fileUpload"
-      multiple="multiple"
-      accept="image/*"
-      style="display: none;"
-    />
+<br />
+<div class="d-flex justify-content-center">
+  <div class="input-group col-8">
+    <div class="custom-file col-5">
+      <input
+        class="custom-file-input"
+        type="file"
+        id="file"
+        aria-describedby="file"
+        (change)="handleFileInput($event.target.files)"
+      />
+      <label for="file" class="custom-file-label">{{ fileName }}</label>
+    </div>
+    <select #activate id="inputState" class="form-control col-3">
+      <option [value]="true">Active</option>
+      <option [value]="false">Deactive</option>
+    </select>
+    <div class="input-group-append">
+      <button
+        [disabled]="!fileSelected"
+        class="btn btn-success"
+        (click)="uploadFileToActivity(activate.value)"
+      >
+        Upload
+      </button>
+    </div>
   </div>
 </div>
-<br />
-<div class="justify-content-center d-flex"></div>
-<div class="d-flex justify-content-center">
-  <button type="button" class="btn btn-success">Install</button>
-</div> -->

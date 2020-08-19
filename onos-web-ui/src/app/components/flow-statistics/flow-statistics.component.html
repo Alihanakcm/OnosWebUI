@@ -1,8 +1,8 @@
 <br />
 <div class="row d-flex justify-content-center">
+  <label>Device Id</label>
   <div class="col-md-6">
     <select #deviceId class="form-control">
-      <option selected>Choose Device</option>
       <option *ngFor="let device of devices" [value]="device.id">{{
         device.id
       }}</option>
@@ -42,5 +42,3 @@
   </table>
 </div>
 <br />
-
-

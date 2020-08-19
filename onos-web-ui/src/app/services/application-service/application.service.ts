@@ -18,12 +18,24 @@ export class ApplicationService {
       .get<Application[]>(this.path)
       .pipe(catchError(this.handleError));
   }
+  uploadFile(fileToUpload: File, activate: boolean): void {
+    const httpOptions = {
+      headers: new HttpHeaders({
+        'Content-Type': 'application/octet-stream',
+        Authorization: 'Token',
+      }),
+    };
+    this.http
+      .post(this.path + '?activate=' + activate, fileToUpload, httpOptions)
+      .pipe(catchError(this.handleError))
+      .subscribe();
+  }
   handleError(err: HttpErrorResponse) {
     let errorMessage = '';
     if (err.error instanceof ErrorEvent) {
-      errorMessage = 'Something went wrong' + err.error.message;
+      errorMessage = 'Something went wrong' + err.message;
     } else {
-      errorMessage = 'System-something went wrong ' + err.error.message;
+      errorMessage = 'System-something went wrong ' + err.message;
     }
     return throwError(errorMessage);
   }

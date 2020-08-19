@@ -36,8 +36,6 @@ export class DeviceService {
         Authorization: 'Token',
       }),
     };
-    console.log(state);
-
     this.http
       .post(this.path + '?id=' + id + '&portId=' + portId, state, httpOptions)
       .pipe(catchError(this.handleError))
@@ -48,7 +46,7 @@ export class DeviceService {
       .get<Port[]>(this.path + '/ports')
       .pipe(catchError(this.handleError));
   }
-  removeDevice(id: string): void {
+  removeDevice(id: string) {
     this.http
       .delete(this.path + '/' + id)
       .pipe(catchError(this.handleError))
@@ -57,9 +55,9 @@ export class DeviceService {
   handleError(err: HttpErrorResponse) {
     let errorMessage = '';
     if (err.error instanceof ErrorEvent) {
-      errorMessage = 'Something went wrong' + err.error.message;
+      errorMessage = 'Something went wrong' + err.message;
     } else {
-      errorMessage = 'System-something went wrong ' + err.error.message;
+      errorMessage = 'System-something went wrong ' + err.message;
     }
     return throwError(errorMessage);
   }

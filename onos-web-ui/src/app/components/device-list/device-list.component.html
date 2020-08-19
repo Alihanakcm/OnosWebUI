@@ -1,5 +1,14 @@
+<ngx-spinner
+  bdColor="transparent"
+  size="medium"
+  color="#fff"
+  type="ball-scale-multiple"
+>
+  <img src="assets/91.gif" />
+  <p style="font-size: 30px; color: black;">Removing...</p></ngx-spinner
+>
 <div class="table-responsive">
-<h2 class="d-flex justify-content-center">Device List</h2>
+  <h2 class="d-flex justify-content-center">Device List</h2>
   <table class="table table-striped table-sm">
     <thead>
       <tr>
@@ -48,12 +57,15 @@
           >
         </td>
         <td>
-          <a
+          <button
+            id="i"
+            [disabled]="checkIfRemoved(device.id)"
             type="button"
             class="btn btn-danger btn-sm"
             (click)="removeDevice(device.id)"
-            >Remove</a
           >
+            Remove
+          </button>
         </td>
       </tr>
     </tbody>

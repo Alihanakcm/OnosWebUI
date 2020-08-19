@@ -5,6 +5,8 @@ import { Flow } from '../../entities/flow';
 import { DeviceService } from '../../services/device-service/device.service';
 import { FlowService } from '../../services/flow-service/flow.service';
 import { MessageService } from '../../services/message-service/message.service';
+import { NgxSpinnerService } from 'ngx-spinner';
+
 @Component({
   selector: 'app-device-list',
   templateUrl: './device-list.component.html',
@@ -15,18 +17,35 @@ export class DeviceListComponent implements OnInit {
   constructor(
     private deviceService: DeviceService,
     private flowService: FlowService,
-    private messageService: MessageService
+    private messageService: MessageService,
+    private spinner: NgxSpinnerService
   ) {}
   devices: Device[];
   deviceDetail: Device;
   ports: Port[];
   flows: Flow[];
+  buttons = Array();
+  removedDevices = Array();
   ngOnInit(): void {
     this.deviceService.getDevices().subscribe((data) => {
       this.devices = data;
+      this.getRemovedDevices();
     });
   }
+  getRemovedDevices(): void {
+    this.devices.forEach((item) => {
+      this.deviceService.getPortsByDeviceId(item.id).subscribe((portData) => {
+        this.ports = portData;
+        if (this.ports.length == 0) this.removedDevices.push(item.id);
+      });
+    });
+  }
+  checkIfRemoved(deviceId: string): boolean {
+    return this.removedDevices.includes(deviceId);
+  }
   getDeviceById(id: string): void {
+    console.log(this.removedDevices);
+
     this.deviceService.getDeviceById(id).subscribe((data) => {
       this.deviceDetail = data;
     });
@@ -41,11 +60,17 @@ export class DeviceListComponent implements OnInit {
     this.deviceService.changePortState(id, portId, state);
     if (state == '{"enabled":true}')
       this.messageService.success('Port ' + portId + ' closed');
-    else this.messageService.success('Port ' + portId + ' opened');
+    else this.messageService.success('Port ' + portId + ' closed');
   }
-  removeDevice(id: string): void {
+  removeDevice(id: string, i: number): void {
+    this.spinner.show();
     this.deviceService.removeDevice(id);
     this.messageService.success(id + ' Device removed succesfully');
+    this.buttons.push(i);
+    setTimeout(() => {
+      this.spinner.hide();
+      location.reload();
+    }, 2000);
   }
   getFlowsByDeviceId(deviceId: string): void {
     this.flowService.getFlowsByDeviceId(deviceId).subscribe((data) => {

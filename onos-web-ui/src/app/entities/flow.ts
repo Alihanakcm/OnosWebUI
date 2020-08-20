@@ -11,7 +11,7 @@ export class Flow {
   priority: number;
   timeout: string;
   isPermanent: boolean;
-  deviceId: number;
+  deviceId: string;
   tableId: number;
   tableName: number;
   treatment: { instructions: [{ type: string; port: string }]; deferred: [] };

@@ -15,6 +15,8 @@ export class FlowsComponent implements OnInit {
   ) {}
   flows: Flow[];
   flowDetail: Flow;
+  buttons = Array(10).fill(false);
+
   ngOnInit(): void {
     this.flowService.getFlows().subscribe((data) => {
       this.flows = data;

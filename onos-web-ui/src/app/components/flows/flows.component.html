@@ -22,7 +22,7 @@
       </tr>
     </thead>
     <tbody>
-      <tr *ngFor="let flow of flows">
+      <tr *ngFor="let flow of flows; index as j">
         <td>{{ flow.id }}</td>
         <td>{{ flow.deviceId }}</td>
         <td>{{ flow.state }}</td>
@@ -37,11 +37,12 @@
           >
         </td>
         <td>
-          <a
+          <button
+            [disabled]="buttons[j]"
             type="button"
             class="btn btn-danger btn-sm"
-            (click)="removeFlow(flow.deviceId, flow.id)"
-            >Remove</a
+            (click)="removeFlow(flow.deviceId, flow.id); buttons[j] = true"
+            >Remove</button
           >
         </td>
       </tr>
@@ -51,7 +52,7 @@
 
 <!-- Modal -->
 <div
-  *ngIf="flowDetail !=undefined"
+  *ngIf="flowDetail != undefined"
   class="modal fade"
   id="flowDetail"
   tabindex="-1"

@@ -22,7 +22,7 @@
       </tr>
     </thead>
     <tbody>
-      <tr *ngFor="let device of devices">
+      <tr *ngFor="let device of devices; index as j">
         <td>{{ device.id }}</td>
         <td>{{ device.type }}</td>
         <td>{{ device.available }}</td>
@@ -59,10 +59,10 @@
         <td>
           <button
             id="i"
-            [disabled]="checkIfRemoved(device.id)"
+            [disabled]="checkIfRemoved(device.id) || buttons[j]"
             type="button"
             class="btn btn-danger btn-sm"
-            (click)="removeDevice(device.id)"
+            (click)="removeDevice(device.id); buttons[j]=true"
           >
             Remove
           </button>

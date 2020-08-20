@@ -3,11 +3,12 @@ import {
   HttpClient,
   HttpErrorResponse,
   HttpHeaders,
+  HttpResponse,
 } from '@angular/common/http';
 import { Device } from '../../entities/device';
 import { Port } from '../../entities/port';
 import { Observable, throwError } from 'rxjs';
-import { catchError } from 'rxjs/operators';
+import { catchError, retry } from 'rxjs/operators';
 
 @Injectable()
 export class DeviceService {
@@ -47,10 +48,23 @@ export class DeviceService {
       .pipe(catchError(this.handleError));
   }
   removeDevice(id: string) {
-    this.http
-      .delete(this.path + '/' + id)
-      .pipe(catchError(this.handleError))
-      .subscribe();
+    return new Promise((resolve, reject) => {
+      this.http
+        .delete(this.path + '/' + id, { responseType: 'text' })
+        .pipe(catchError(this.handleError))
+        .subscribe((response) => {
+          console.log(response);
+
+          if (response == 'Removed') {
+            const e = false;
+            if (!e) resolve(true);
+            else {
+              reject(false);
+              retry();
+            }
+          }
+        });
+    });
   }
   handleError(err: HttpErrorResponse) {
     let errorMessage = '';

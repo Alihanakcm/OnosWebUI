@@ -6,7 +6,6 @@ import { DeviceService } from '../../services/device-service/device.service';
 import { FlowService } from '../../services/flow-service/flow.service';
 import { MessageService } from '../../services/message-service/message.service';
 import { NgxSpinnerService } from 'ngx-spinner';
-
 @Component({
   selector: 'app-device-list',
   templateUrl: './device-list.component.html',
@@ -24,7 +23,7 @@ export class DeviceListComponent implements OnInit {
   deviceDetail: Device;
   ports: Port[];
   flows: Flow[];
-  buttons = Array();
+  buttons = Array(10).fill(false);
   removedDevices = Array();
   ngOnInit(): void {
     this.deviceService.getDevices().subscribe((data) => {
@@ -64,13 +63,12 @@ export class DeviceListComponent implements OnInit {
   }
   removeDevice(id: string, i: number): void {
     this.spinner.show();
-    this.deviceService.removeDevice(id);
-    this.messageService.success(id + ' Device removed succesfully');
-    this.buttons.push(i);
-    setTimeout(() => {
-      this.spinner.hide();
-      location.reload();
-    }, 2000);
+    this.deviceService.removeDevice(id).then((result) => {
+      if (result) {
+        this.messageService.success(id + ' Device removed succesfully');
+        this.spinner.hide();
+      }
+    });
   }
   getFlowsByDeviceId(deviceId: string): void {
     this.flowService.getFlowsByDeviceId(deviceId).subscribe((data) => {

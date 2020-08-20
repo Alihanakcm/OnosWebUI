@@ -24,7 +24,7 @@ export class PortsComponent implements OnInit {
     state = `{"enabled":${state}}`;
     this.deviceService.changePortState(id, portId, state);
     if (state == '{"enabled":true}')
-      this.messageService.success('Port ' + portId + ' closed');
+      this.messageService.warning('Port ' + portId + ' closed');
     else this.messageService.success('Port ' + portId + ' opened');
   }
 }

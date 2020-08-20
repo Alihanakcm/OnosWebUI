@@ -29,14 +29,20 @@
             type="button"
             class="btn btn-success btn-sm"
             *ngIf="port.isEnabled == false; else portDisable"
-            (click)="changePortState(port.element, port.port, 'true')"
+            (click)="
+              changePortState(port.element, port.port, 'true');
+              port.isEnabled = true
+            "
             >On</a
           >
           <ng-template #portDisable>
             <a
               type="button"
               class="btn btn-danger btn-sm"
-              (click)="changePortState(port.element, port.port, 'false')"
+              (click)="
+                changePortState(port.element, port.port, 'false');
+                port.isEnabled = false
+              "
               >Off</a
             ></ng-template
           >

@@ -11,17 +11,24 @@ export class ApplicationInstallComponent implements OnInit {
   files = [];
   fileSelected = false;
   fileName = 'Choose File';
+  fileToUpload: File = null;
+  wrongFile;
   constructor(
     private applicationService: ApplicationService,
     private messageService: MessageService
   ) {}
-  fileToUpload: File = null;
   ngOnInit(): void {}
 
   handleFileInput(files: FileList) {
     this.fileToUpload = files.item(0);
-    this.fileName = this.fileToUpload.name;
-    this.fileSelected = true;
+    if (this.fileToUpload.name.split('.').pop() == 'oar') {
+      this.fileName = this.fileToUpload.name;
+      this.fileSelected = true;
+      this.wrongFile = false;
+    } else {
+      this.wrongFile = true;
+      this.fileSelected = false;
+    }
   }
   uploadFileToActivity(activate: boolean) {
     this.applicationService.uploadFile(this.fileToUpload, activate);

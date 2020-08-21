@@ -59,7 +59,7 @@ export class DeviceListComponent implements OnInit {
     this.deviceService.changePortState(id, portId, state);
     if (state == '{"enabled":true}')
       this.messageService.success('Port ' + portId + ' closed');
-    else this.messageService.success('Port ' + portId + ' closed');
+    else this.messageService.warning('Port ' + portId + ' closed');
   }
   removeDevice(id: string, i: number): void {
     this.spinner.show();

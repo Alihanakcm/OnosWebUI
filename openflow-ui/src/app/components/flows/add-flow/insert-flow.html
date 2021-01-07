@@ -1,7 +1,7 @@
 <h2>Create Flow Rule</h2>
 
 <mat-horizontal-stepper [linear]="isLinear" #stepper>
-    <mat-step>
+    <mat-step [stepControl]="flowRuleParametersForm">
         <ng-template matStepLabel>Enter Parameters</ng-template>
         <form [formGroup]="flowRuleParametersForm" (ngSubmit)="addFlowRuleParameters()">
             <div fxLayout="column">
@@ -248,18 +248,15 @@
                         type="text" [(ngModel)]="selectedRuleValue1">
                 </mat-form-field>
             </div>
-
-            <div fxLayout="row" fxLayoutAlign="end end">
-                <!-- <button mat-raised-button color="warn" class="example-delete-tab-button" [disabled]="tabs.length === 1"
-                    (click)="removeTab(index)">
-                    Delete Rule
-                </button> -->
-                <button mat-stroked-button color="primary" class="example-add-tab-button"
-                    [disabled]="!selectedType || !selectedRuleType" (click)="addTab(false)">
-                    Add New Rule
-                </button>
-            </div>
         </div>
+        <br>
+        <div fxLayout="column" fxLayoutAlign="end end">
+            <button mat-stroked-button color="primary" class="example-add-tab-button"
+                [disabled]="!selectedType || !selectedRuleType" (click)="addTab(false)">
+                Add New Rule
+            </button>
+        </div>
+        <br>
         <br>
         <div fxLayout="row" fxLayoutAlign="end end">
             <button mat-button matStepperPrevious>Back</button>
@@ -268,15 +265,56 @@
     </mat-step>
     <mat-step>
         <ng-template matStepLabel>Done</ng-template>
-        <p>You are now done.</p>
-        <div fxLayout="row" fxLayoutAlign="space-between center">
-            <div>Is Permanent : {{flow.isPermanent}} </div>
-            <div>Timeout : {{flow.timeout}} </div>
-            <div>Priority : {{flow.priority}} </div>
-            <div>Device Id : {{flow.deviceId}} </div>
+        <table class="table">
+            <thead>
+                <tr>
+                    <th scope="col">Is Permanent</th>
+                    <th scope="col">Timeout</th>
+                    <th scope="col">Priority</th>
+                    <th scope="col">Device ID</th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr>
+                    <th scope="row">{{flow.isPermanent}}</th>
+                    <th scope="row">{{flow.timeout}}</th>
+                    <th scope="row">{{flow.priority}}</th>
+                    <th scope="row">{{flow.deviceId}}</th>
+                </tr>
+            </tbody>
+        </table>
+        <br>
+        <br>
+        <div fxLayout="row" fxLayoutAlign="space-evenly center">
+            <div>
+                <table class="table">
+                    <thead>
+                        <tr>
+                            <th scope="col">Instruction</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr *ngFor="let instruction of flow.treatment.instructions">
+                            <th scope="row">{{instruction}}</th>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+            <div>
+                <table class="table">
+                    <thead>
+                        <tr>
+                            <th scope="col">Criteria</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr *ngFor="let criteria of flow.selector.criteria">
+                            <th scope="row">{{criteria}}</th>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
         </div>
-        <br>
-        <br>
         <div fxLayout="row" fxLayoutAlign="end end">
             <button mat-button matStepperPrevious>Back</button>
             <button mat-button (click)="stepper.reset()">Reset</button>

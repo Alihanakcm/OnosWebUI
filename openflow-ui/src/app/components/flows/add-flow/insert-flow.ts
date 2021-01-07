@@ -178,9 +178,9 @@ export class InsertFlow implements OnInit {
                     break;
                 case 'L0MODIFICATION': {
                     if (subType == 'LAMBDA')
-                        this.flow.treatment.instructions.push(`{ "type": "${selectedRuleType}", "subType": subType, "lambda": "${selectedValue1}" }`)
+                        this.flow.treatment.instructions.push(`{ "type": "${selectedRuleType}", "subType": "${subType}", "lambda": "${selectedValue1}" }`)
                     else
-                        this.flow.treatment.instructions.push(`{ "type": "${selectedRuleType}", "subType": subType, "gridType": "${selectedValue1}", "channelSpacing": "${selectedValue2}", "spacingMultiplier": "${selectedValue3}", "slotGranularity": "${selectedValue4}" }`)
+                        this.flow.treatment.instructions.push(`{ "type": "${selectedRuleType}", "subType": "${subType}", "gridType": "${selectedValue1}", "channelSpacing": "${selectedValue2}", "spacingMultiplier": "${selectedValue3}", "slotGranularity": "${selectedValue4}" }`)
                 }; break;
                 case 'L1MODIFICATION':
                     this.flow.treatment.instructions.push(`{ "type": "${selectedRuleType}", "subType": "${subType}", "oduSignalId": { "tributaryPortNumber": "${selectedValue1}", "tributarySlotLength": "${selectedValue2}", "tributarySlotBitMap": "${selectedValue3}" } }`)

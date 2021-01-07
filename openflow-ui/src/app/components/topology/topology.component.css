@@ -1,0 +1,23 @@
+.links line {
+  stroke: #999;
+  stroke-opacity: 0.6;
+}
+
+.nodes div {
+  stroke: rgb(221, 12, 12);
+  stroke-width: 1.5px;
+  cursor: pointer;
+}
+
+
+div.tooltip {	
+  position: absolute;			
+  text-align: left;			
+  width: 250px;					
+  height: 150px;					
+  padding: 2px;				
+  background: rgb(188, 197, 209);	
+  border: 0px;		
+  border-radius: 8px;			
+  pointer-events: none;			
+}

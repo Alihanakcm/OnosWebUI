@@ -1,0 +1,58 @@
+<table mat-table [dataSource]="ports" class="mat-elevation-z8">
+
+  <!--- Note that these columns can be defined in any order.
+        The actual rendered columns are set as a property on the row definition" -->
+
+  <!-- Position Column -->
+  <ng-container matColumnDef="element">
+    <th mat-header-cell *matHeaderCellDef> Element </th>
+    <td mat-cell *matCellDef="let port"> {{port.element}} </td>
+  </ng-container>
+
+  <!-- Name Column -->
+  <ng-container matColumnDef="port">
+    <th mat-header-cell *matHeaderCellDef> Port </th>
+    <td mat-cell *matCellDef="let port"> {{port.port}} </td>
+  </ng-container>
+
+  <!-- Weight Column -->
+  <ng-container matColumnDef="type">
+    <th mat-header-cell *matHeaderCellDef> Type </th>
+    <td mat-cell *matCellDef="let port"> {{port.type}} </td>
+  </ng-container>
+
+  <!-- Symbol Column -->
+  <ng-container matColumnDef="portSpeed">
+    <th mat-header-cell *matHeaderCellDef> Port Speed </th>
+    <td mat-cell *matCellDef="let port"> {{port.portSpeed}} </td>
+  </ng-container>
+  <ng-container matColumnDef="adminState">
+    <th mat-header-cell *matHeaderCellDef> Admin State </th>
+    <td mat-cell *matCellDef="let port"> {{port.annotations.adminState}} </td>
+  </ng-container>
+  <ng-container matColumnDef="portMac">
+    <th mat-header-cell *matHeaderCellDef> Port Mac </th>
+    <td mat-cell *matCellDef="let port"> {{port.annotations.portMac}} </td>
+  </ng-container>
+  <ng-container matColumnDef="portName">
+    <th mat-header-cell *matHeaderCellDef> Port Name </th>
+    <td mat-cell *matCellDef="let port"> {{port.annotations.portName}} </td>
+  </ng-container>
+  <ng-container matColumnDef="changePortState">
+    <th mat-header-cell *matHeaderCellDef>State </th>
+    <td mat-cell *matCellDef="let port">
+      <div *ngIf="port.port != 'local'"><button *ngIf="port.isEnabled == true; else portDisable" mat-mini-fab
+          style="background-color: #00bc97;" (click)="changePortState(port.element, port.port, 'false'); port.isEnabled = false
+      ">On</button>
+        <ng-template #portDisable>
+          <button *ngIf="port.isEnabled == false" mat-mini-fab color="warn"
+            (click)="changePortState(port.element, port.port, 'true'); port.isEnabled = true">Off</button>
+        </ng-template>
+      </div>
+    </td>
+
+  </ng-container>
+
+  <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
+  <tr mat-row *matRowDef="let row; columns: displayedColumns;"></tr>
+</table>

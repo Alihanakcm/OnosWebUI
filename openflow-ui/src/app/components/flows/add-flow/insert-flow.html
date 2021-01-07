@@ -1,0 +1,287 @@
+<h2>Create Flow Rule</h2>
+
+<mat-horizontal-stepper [linear]="isLinear" #stepper>
+    <mat-step>
+        <ng-template matStepLabel>Enter Parameters</ng-template>
+        <form [formGroup]="flowRuleParametersForm" (ngSubmit)="addFlowRuleParameters()">
+            <div fxLayout="column">
+                <label id="example-radio-group-label">Pick is permanent</label>
+                <mat-radio-group aria-label="Select an option" id="isPermanent" formControlName="isPermanent">
+                    <mat-radio-button value="true">True</mat-radio-button>
+                    <mat-radio-button value="false">False</mat-radio-button>
+                </mat-radio-group>
+                <mat-form-field class="example-full-width">
+                    <mat-label>Priority</mat-label>
+                    <input matInput #priority id="priority" name="priority" formControlName="priority"
+                        placeholder="Ex. 4000" type="number" required>
+                </mat-form-field>
+                <mat-form-field class="example-full-width">
+                    <mat-label>Timeout</mat-label>
+                    <input matInput id="timeout" name="timeout" formControlName="timeout" placeholder="Ex. 0" required>
+                </mat-form-field>
+                <mat-form-field appearance="fill">
+                    <mat-label>Device Id</mat-label>
+                    <mat-select formControlName="deviceId">
+                        <mat-option></mat-option>
+                        <mat-option [value]="device.id" *ngFor="let device of devices"> {{device.type}} --
+                            {{device.hw}}
+                            -- {{device.chassisId}}</mat-option>
+                    </mat-select>
+                </mat-form-field>
+                <mat-form-field appearance="fill">
+                    <mat-label>App Id</mat-label>
+                    <mat-select formControlName="appId">
+                        <mat-option></mat-option>
+                        <mat-option [value]="app.name" *ngFor="let app of applications">{{app.name}} </mat-option>
+                    </mat-select>
+                </mat-form-field>
+            </div>
+            <div fxLayoutAlign="end end"> <button type="submit" mat-button matStepperNext>Next</button></div>
+        </form>
+    </mat-step>
+    <mat-step [stepControl]="firstFormGroup">
+        <ng-template matStepLabel>Enter Flow Rules</ng-template>
+        <div>
+            <div fxLayout="column" fxFlex="20">
+                <label id="example-radio-group-label">Pick your flow type</label>
+                <mat-radio-group aria-label="Select an option" fxLayout="column" [(ngModel)]="selectedType">
+                    <mat-radio-button [checked]="selectedType=='Instruction'" (click)="clear()" value="Instruction"
+                        style=" margin-left: 15px;">Instruction
+                    </mat-radio-button>
+                    <mat-radio-button [checked]="selectedType=='Criteria'" (click)="clear()" value="Criteria">
+                        Criteria
+                    </mat-radio-button>
+                </mat-radio-group>
+            </div>
+            <div fxLayout="column" fxFlex="80">
+                <mat-form-field *ngIf="selectedType=='Instruction'" appearance="fill">
+                    <mat-label>Instruction Type</mat-label>
+                    <mat-select [(ngModel)]="selectedRuleType">
+                        <mat-option></mat-option>
+                        <mat-option [value]="type" *ngFor="let type of instructionTypes">
+                            {{type}}</mat-option>
+                    </mat-select>
+                </mat-form-field>
+                <mat-form-field *ngIf="selectedType=='Criteria'" appearance="fill">
+                    <mat-label>Criteria Type</mat-label>
+                    <mat-select [(ngModel)]="selectedRuleType">
+                        <mat-option></mat-option>
+                        <mat-option [value]="type" *ngFor="let type of criteriaTypes">
+                            {{type}}</mat-option>
+                    </mat-select>
+                </mat-form-field>
+                <mat-form-field *ngIf="selectedRuleType===this.instructionParameters.METER 
+                    || selectedRuleType==this.instructionParameters.GROUP 
+                    || selectedRuleType==this.instructionParameters.OUTPUT 
+                    || selectedRuleType==this.instructionParameters.TABLE" class="example-full-width">
+                    <mat-label>{{instructionParameterName.getParameterName(this.selectedRuleType)[0]}}
+                    </mat-label>
+                    <input matInput [placeholder]="instructionParameterName.getParameterName(this.selectedRuleType)[1]"
+                        type="text" [(ngModel)]="selectedRuleValue1">
+                </mat-form-field>
+                <div *ngIf="selectedRuleType===this.instructionParameters.QUEUE" fxLayout="column">
+                    <mat-form-field class="example-full-width">
+                        <mat-label>{{instructionParameterName.getParameterName(this.selectedRuleType)[0]}}
+                        </mat-label>
+                        <input matInput
+                            [placeholder]="instructionParameterName.getParameterName(this.selectedRuleType)[2]"
+                            type="text" [(ngModel)]="selectedRuleValue1">
+                    </mat-form-field>
+                    <mat-form-field class="example-full-width">
+                        <mat-label>{{instructionParameterName.getParameterName(this.selectedRuleType)[1]}}
+                        </mat-label>
+                        <input matInput
+                            [placeholder]="instructionParameterName.getParameterName(this.selectedRuleType)[3]"
+                            type="text" [(ngModel)]="selectedRuleValue2">
+                    </mat-form-field>
+                </div>
+                <div *ngIf="selectedRuleType===this.instructionParameters.L0MODIFICATION" fxLayout="column">
+                    <mat-radio-group aria-label="Select an option" [(ngModel)]="subType">
+                        <mat-radio-button value="LAMBDA">LAMBDA</mat-radio-button>
+                        <mat-radio-button value="OCH">OCH</mat-radio-button>
+                    </mat-radio-group>
+                    <mat-form-field *ngIf="subType=='LAMBDA'" class="example-full-width">
+                        <mat-label>{{instructionParameterName.getParameterName(this.subType)[0]}}
+                        </mat-label>
+                        <input matInput [placeholder]="instructionParameterName.getParameterName(this.subType)[1]"
+                            type="text" [(ngModel)]="selectedRuleValue1">
+                    </mat-form-field>
+                    <div *ngIf="subType=='OCH'" fxLayout="column">
+                        <mat-form-field class="example-full-width">
+                            <mat-label>{{instructionParameterName.getParameterName(this.subType)[0]}}
+                            </mat-label>
+                            <input matInput [placeholder]="instructionParameterName.getParameterName(this.subType)[4]"
+                                type="text">
+                        </mat-form-field>
+                        <mat-form-field class="example-full-width">
+                            <mat-label>{{instructionParameterName.getParameterName(this.subType)[1]}}
+                            </mat-label>
+                            <input matInput [placeholder]="instructionParameterName.getParameterName(this.subType)[5]"
+                                type="text" [(ngModel)]="selectedRuleValue1">
+                        </mat-form-field>
+                        <mat-form-field class="example-full-width">
+                            <mat-label>{{instructionParameterName.getParameterName(this.subType)[2]}}
+                            </mat-label>
+                            <input matInput [placeholder]="instructionParameterName.getParameterName(this.subType)[6]"
+                                type="text" [(ngModel)]="selectedRuleValue2">
+                        </mat-form-field>
+                        <mat-form-field class="example-full-width">
+                            <mat-label>{{instructionParameterName.getParameterName(this.subType)[3]}}
+                            </mat-label>
+                            <input matInput [placeholder]="instructionParameterName.getParameterName(this.subType)[7]"
+                                type="text" [(ngModel)]="selectedRuleValue3">
+                        </mat-form-field>
+                    </div>
+                </div>
+                <div *ngIf="selectedRuleType===this.instructionParameters.L1MODIFICATION" fxLayout="column">
+                    <mat-form-field class="example-full-width">
+                        <mat-label>{{instructionParameterName.getParameterName(this.selectedRuleType)[0]}}
+                        </mat-label>
+                        <input matInput type="text"
+                            [placeholder]="instructionParameterName.getParameterName(this.selectedRuleType)[4]"
+                            [(ngModel)]="selectedRuleValue1">
+                    </mat-form-field>
+                    <mat-form-field class="example-full-width">
+                        <mat-label>{{instructionParameterName.getParameterName(this.selectedRuleType)[1]}}
+                        </mat-label>
+                        <input matInput
+                            [placeholder]="instructionParameterName.getParameterName(this.selectedRuleType)[5]"
+                            type="text" [(ngModel)]="selectedRuleValue2">
+                    </mat-form-field>
+                    <mat-form-field class="example-full-width">
+                        <mat-label>{{instructionParameterName.getParameterName(this.selectedRuleType)[2]}}
+                        </mat-label>
+                        <input matInput
+                            [placeholder]="instructionParameterName.getParameterName(this.selectedRuleType)[6]"
+                            type="text" [(ngModel)]="selectedRuleValue3">
+                    </mat-form-field>
+                    <mat-form-field class="example-full-width">
+                        <mat-label>{{instructionParameterName.getParameterName(this.selectedRuleType)[3]}}
+                        </mat-label>
+                        <input matInput type="text" [(ngModel)]="selectedRuleValue4">
+                    </mat-form-field>
+                </div>
+                <div *ngIf="selectedRuleType===this.instructionParameters.L2MODIFICATION" fxLayout="column">
+                    <mat-form-field appearance="fill">
+                        <mat-label>Sub Type</mat-label>
+                        <mat-select [(ngModel)]="subType">
+                            <mat-option></mat-option>
+                            <mat-option [value]="type" *ngFor="let type of L2ModificationTypes">
+                                {{type}}</mat-option>
+                        </mat-select>
+                    </mat-form-field>
+                    <mat-form-field *ngIf="this.subType" class="example-full-width">
+                        <mat-label>{{instructionParameterName.getParameterName(this.subType)[0]}}
+                        </mat-label>
+                        <input matInput type="text"
+                            [placeholder]="instructionParameterName.getParameterName(this.subType)[1]"
+                            [(ngModel)]="selectedRuleValue1">
+                    </mat-form-field>
+                </div>
+                <div *ngIf="selectedRuleType===this.instructionParameters.L3MODIFICATION" fxLayout="column">
+                    <mat-form-field appearance="fill">
+                        <mat-label>Sub Type
+                        </mat-label>
+                        <mat-select [(ngModel)]="subType">
+                            <mat-option></mat-option>
+                            <mat-option *ngFor="let type of L3ModificationTypes" [value]="type">
+                                {{type}}</mat-option>
+                        </mat-select>
+                    </mat-form-field>
+                    <mat-form-field *ngIf="this.subType!='VLAN_PUSH' && this.subType" class="example-full-width">
+                        <mat-label>{{instructionParameterName.getParameterName(this.subType)[0]}}
+                        </mat-label>
+                        <input matInput type="text"
+                            [placeholder]="instructionParameterName.getParameterName(this.subType)[1]"
+                            [(ngModel)]="selectedRuleValue1">
+                    </mat-form-field>
+                </div>
+                <div *ngIf="selectedRuleType===this.instructionParameters.L4MODIFICATION" fxLayout="column">
+                    <mat-radio-group aria-label="Select an option" [(ngModel)]="subType">
+                        <mat-radio-button value="TCP_SRC">TCP_SRC</mat-radio-button>
+                        <mat-radio-button value="UDP_SRC">UDP_SRC</mat-radio-button>
+                    </mat-radio-group>
+                    <mat-form-field *ngIf="this.subType" class="example-full-width">
+                        <mat-label>{{instructionParameterName.getParameterName(this.subType)[0]}}
+                        </mat-label>
+                        <input matInput [placeholder]="instructionParameterName.getParameterName(this.subType)[1]"
+                            type="text" [(ngModel)]="selectedRuleValue1">
+                    </mat-form-field>
+                </div>
+                <div *ngIf="selectedRuleType===this.criteriaParameters.ODU_SIGID" fxLayout="column">
+                    <mat-form-field class="example-full-width">
+                        <mat-label>{{criteriaParameterName.getParameterName(this.selectedRuleType)[0]}}
+                        </mat-label>
+                        <input matInput type="text"
+                            [placeholder]="criteriaParameterName.getParameterName(this.selectedRuleType)[5]"
+                            [(ngModel)]="selectedRuleValue1">
+                    </mat-form-field>
+                    <mat-form-field class="example-full-width">
+                        <mat-label>{{criteriaParameterName.getParameterName(this.selectedRuleType)[1]}}
+                        </mat-label>
+                        <input matInput [placeholder]="criteriaParameterName.getParameterName(this.selectedRuleType)[6]"
+                            type="text" [(ngModel)]="selectedRuleValue2">
+                    </mat-form-field>
+                    <mat-form-field class="example-full-width">
+                        <mat-label>{{criteriaParameterName.getParameterName(this.selectedRuleType)[2]}}
+                        </mat-label>
+                        <input matInput [placeholder]="criteriaParameterName.getParameterName(this.selectedRuleType)[7]"
+                            type="text" [(ngModel)]="selectedRuleValue3">
+                    </mat-form-field>
+                    <mat-form-field class="example-full-width">
+                        <mat-label>{{criteriaParameterName.getParameterName(this.selectedRuleType)[3]}}
+                        </mat-label>
+                        <input matInput [placeholder]="criteriaParameterName.getParameterName(this.selectedRuleType)[8]"
+                            type="text" [(ngModel)]="selectedRuleValue4">
+                    </mat-form-field>
+                    <mat-form-field class="example-full-width">
+                        <mat-label>{{criteriaParameterName.getParameterName(this.selectedRuleType)[4]}}
+                        </mat-label>
+                        <input matInput [placeholder]="criteriaParameterName.getParameterName(this.selectedRuleType)[9]"
+                            type="text" [(ngModel)]="selectedRuleValue5">
+                    </mat-form-field>
+                </div>
+                <mat-form-field *ngIf="selectedType=='Criteria' && selectedRuleType" class="example-full-width">
+                    <mat-label>{{criteriaParameterName.getParameterName(this.selectedRuleType)[0]}}
+                    </mat-label>
+                    <input matInput [placeholder]="criteriaParameterName.getParameterName(this.selectedRuleType)[1]"
+                        type="text" [(ngModel)]="selectedRuleValue1">
+                </mat-form-field>
+            </div>
+
+            <div fxLayout="row" fxLayoutAlign="end end">
+                <!-- <button mat-raised-button color="warn" class="example-delete-tab-button" [disabled]="tabs.length === 1"
+                    (click)="removeTab(index)">
+                    Delete Rule
+                </button> -->
+                <button mat-stroked-button color="primary" class="example-add-tab-button"
+                    [disabled]="!selectedType || !selectedRuleType" (click)="addTab(false)">
+                    Add New Rule
+                </button>
+            </div>
+        </div>
+        <br>
+        <div fxLayout="row" fxLayoutAlign="end end">
+            <button mat-button matStepperPrevious>Back</button>
+            <button mat-button matStepperNext>Next</button>
+        </div>
+    </mat-step>
+    <mat-step>
+        <ng-template matStepLabel>Done</ng-template>
+        <p>You are now done.</p>
+        <div fxLayout="row" fxLayoutAlign="space-between center">
+            <div>Is Permanent : {{flow.isPermanent}} </div>
+            <div>Timeout : {{flow.timeout}} </div>
+            <div>Priority : {{flow.priority}} </div>
+            <div>Device Id : {{flow.deviceId}} </div>
+        </div>
+        <br>
+        <br>
+        <div fxLayout="row" fxLayoutAlign="end end">
+            <button mat-button matStepperPrevious>Back</button>
+            <button mat-button (click)="stepper.reset()">Reset</button>
+            <button mat-raised-button color="primary" (click)="createFlow()">Create</button>
+        </div>
+    </mat-step>
+
+</mat-horizontal-stepper>

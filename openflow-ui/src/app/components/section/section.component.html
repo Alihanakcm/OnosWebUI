@@ -1,0 +1,88 @@
+<nav id="sidebarMenu" class="col-md-3 col-lg-2 d-md-block bg-light sidebar collapse">
+  <div class="sidebar-sticky pt-3">
+    <ul class="nav flex-column">
+      <li class="nav-item">
+        <a class="nav-link list-group-item-action" data-toggle="collapse" data-target="#deviceItems"
+          aria-expanded="false">
+          <span data-feather="home"></span>
+          Devices <span class="sr-only">(current)</span>
+        </a>
+        <div class="collapse" id="deviceItems">
+          <div class="list-group">
+            <a routerLink="/devices" class="list-group-item list-group-item-action">
+              Get all insfrastructure devices
+            </a>
+            <a routerLink="/devices/ports" class="list-group-item list-group-item-action">Get ports of all infrastructure
+              devices</a>
+            <a routerLink="/topology" class="list-group-item list-group-item-action">Gets overview of current
+              topology
+
+            </a>
+          </div>
+        </div>
+      </li>
+      <li class="nav-item">
+        <a class="nav-link list-group-item-action" data-toggle="collapse" data-target="#flowItems" aria-expanded="false"
+          aria-controls="collapseExample">
+          <span data-feather="file"></span>
+          Flows
+        </a>
+        <div class="collapse" id="flowItems">
+          <div class="list-group">
+            <a routerLink="/flows" class="list-group-item list-group-item-action">
+              Gets all flow entries
+            </a>
+          </div>
+        </div>
+      </li>
+      <li class="nav-item">
+        <a class="nav-link list-group-item-action" data-toggle="collapse" data-target="#statisticItems"
+          aria-expanded="false" aria-controls="collapseExample">
+          <span data-feather="shopping-cart"></span>
+          Statistics
+        </a>
+
+        <div class="collapse" id="statisticItems">
+          <div class="list-group">
+            <a routerLink="/statistics/device" class="list-group-item list-group-item-action">
+              Get device statistics
+            </a>
+            <a routerLink="/statistics/flows" class="list-group-item list-group-item-action">
+              Get flow statistics
+            </a>
+          </div>
+        </div>
+      </li>
+      <li class="nav-item">
+        <a class="nav-link list-group-item-action" data-toggle="collapse" data-target="#applicationItems"
+          aria-expanded="false" aria-controls="collapseExample">
+          <span data-feather="shopping-cart"></span>
+          Applications
+        </a>
+
+        <div class="collapse" id="applicationItems">
+          <div class="list-group">
+            <a routerLink="/applications/install" class="list-group-item list-group-item-action">
+              Install Application
+            </a>
+          </div>
+        </div>
+      </li>
+    </ul>
+
+    <h6 class="sidebar-heading d-flex justify-content-between align-items-center px-3 mt-4 mb-1 text-muted">
+      <span>Reports</span>
+      <a class="d-flex align-items-center text-muted" href="#" aria-label="Add a new report">
+        <span data-feather="plus-circle"></span>
+      </a>
+    </h6>
+    <ul class="nav flex-column mb-2">
+      <li class="nav-item">
+        <a class="nav-link" routerLink="/traffic">
+          <span data-feather="file-text"></span>
+          Traffic
+        </a>
+      </li>
+    </ul>
+  </div>
+</nav>

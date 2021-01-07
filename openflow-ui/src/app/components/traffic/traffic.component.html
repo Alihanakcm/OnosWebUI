@@ -1,0 +1,41 @@
+<div class="table-responsive" *ngIf="devicePortStatistics && ddosInfo">
+    <table class="table table-striped table-sm">
+        <thead>
+            <tr>
+                <th scope="col">Port</th>
+                <th scope="col">Packet Received</th>
+                <th scope="col">Packet Sent</th>
+                <th scope="col">Bytes Received</th>
+                <th scope="col">Bytes Sent</th>
+                <th scope="col">Duration Sec</th>
+                <th scope="col">Entropy</th>
+                <th scope="col">DDOS</th>
+
+            </tr>
+        </thead>
+        <tbody *ngIf="ddosInfo.ddos; else notDdos">
+                <tr class="table-danger" *ngFor="let devicePortStatistic of devicePortStatistics[0].ports">
+                    <td>{{ devicePortStatistic.port }}</td>
+                    <td>{{ devicePortStatistic.packetsReceived }}</td>
+                    <td>{{ devicePortStatistic.packetsSent }}</td>
+                    <td>{{ devicePortStatistic.bytesReceived }}</td>
+                    <td>{{ devicePortStatistic.bytesSent }}</td>
+                    <td>{{ devicePortStatistic.durationSec }}</td>
+                    <td>{{ddosInfo.entropy}}</td>
+                    <td>{{ddosInfo.ddos}}</td>
+                </tr>
+        </tbody>
+        <ng-template #notDdos>
+            <tr class="table-success" *ngFor="let devicePortStatistic of devicePortStatistics[0].ports">
+                <td>{{ devicePortStatistic.port }}</td>
+                <td>{{ devicePortStatistic.packetsReceived }}</td>
+                <td>{{ devicePortStatistic.packetsSent }}</td>
+                <td>{{ devicePortStatistic.bytesReceived }}</td>
+                <td>{{ devicePortStatistic.bytesSent }}</td>
+                <td>{{ devicePortStatistic.durationSec }}</td>
+                <td>{{ddosInfo.entropy}}</td>
+                <td>{{ddosInfo.ddos}}</td>
+            </tr>
+        </ng-template>
+    </table>
+</div>
